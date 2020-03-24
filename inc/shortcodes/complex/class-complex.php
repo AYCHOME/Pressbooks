@@ -8,6 +8,7 @@ namespace Pressbooks\Shortcodes\Complex;
 
 use function \Pressbooks\Utility\do_shortcode_by_tags;
 use function \Pressbooks\Utility\str_starts_with;
+use PressbooksMix\Assets;
 
 class Complex {
 
