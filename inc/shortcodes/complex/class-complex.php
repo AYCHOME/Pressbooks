@@ -38,8 +38,9 @@ class Complex {
 		add_shortcode( 'email', [ $obj, 'emailShortCodeHandler' ] );
 		add_shortcode( 'equation', [ $obj, 'equationShortCodeHandler' ] );
 		add_shortcode( 'media', [ $obj, 'mediaShortCodeHandler' ] );
-		add_shortcode( 'reveal-answer', [ $obj, 'revealAnswerShortcode' ] );
-		add_shortcode( 'hidden-answer', [ $obj, 'hiddenAnswerShortcode' ] );
+		add_shortcode( 'reveal-answer', [ $obj, 'revealAnswerShortCodeHandler' ] );
+		add_shortcode( 'hidden-answer', [ $obj, 'hiddenAnswerShortCodeHandler' ] );
+		add_action( 'init', [ $obj, 'hiddenAnswerScripts' ] );
 	}
 
 	/**
@@ -284,7 +285,7 @@ class Complex {
 	/**
 	 * Enqueues show/hide answer JavaScript
 	 */
-	public function hiddenAnswerScripts () {
+	public function hiddenAnswerScripts() {
 		  $assets = new Assets( 'pressbooks', 'plugin' );
 			wp_enqueue_script( 'hide-answers', $assets->getPath( 'scripts/hide-answer.js' ), array( 'jquery' ), '', true );
 	}
