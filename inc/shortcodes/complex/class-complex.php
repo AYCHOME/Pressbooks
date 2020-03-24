@@ -38,6 +38,9 @@ class Complex {
 		add_shortcode( 'email', [ $obj, 'emailShortCodeHandler' ] );
 		add_shortcode( 'equation', [ $obj, 'equationShortCodeHandler' ] );
 		add_shortcode( 'media', [ $obj, 'mediaShortCodeHandler' ] );
+		add_shortcode( 'reveal-answer', [ $obj, 'revealAnswerShortcode' ] );
+		add_shortcode( 'hidden-answer', [ $obj, 'hiddenAnswerShortcode' ] );
+
 	}
 
 	/**
@@ -239,5 +242,44 @@ class Complex {
 		} else {
 			return $e;
 		}
+	}
+
+	/**
+	 * Shortcode handler for [reveal-answer].
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @param string $content Shortcode content.
+	 *
+	 * @return string
+	 */
+	public function revealAnswerShortcode( $atts, $content = null) {
+		$wrapper_style = 'display: block';
+		$show_answer_style = 'cursor: pointer';
+
+		$atts = shortcode_atts(
+			array(
+				'q' => 'default 1',
+			), $atts
+		);
+
+		return '<div class="qa-wrapper" style="' . $wrapper_style . '"><span class="show-answer collapsed" style="' . $show_answer_style . '" data-target="q' . $atts['q'] . '">' . do_shortcode( $content ) . '</span>';
+		}
+
+	/**
+	 * Shortcode that wraps around text that hides the answer.
+	 * Ex: [hidden-answer a="1"]Show Answer[/hidden-answer].
+	 */
+	function hiddenAnswerShortcode( $atts, $content = null ) {
+
+		$hidden_answer_style = 'display: none';
+
+		$atts = shortcode_atts(
+			array(
+				'a' => 'default 1',
+			), $atts
+		);
+
+		return '<div id="q' . $atts['a'] . '" class="hidden-answer" style="' . $hidden_answer_style . '">' . do_shortcode( $content ) . '</div></div>';
+
 	}
 }
