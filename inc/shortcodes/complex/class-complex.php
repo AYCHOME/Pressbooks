@@ -251,7 +251,7 @@ class Complex {
 	 *
 	 * @return string
 	 */
-	public function revealAnswerShortcode( $atts, $content = null) {
+	public function revealAnswerShortCodeHandler( $atts, $content = null) {
 		$wrapper_style = 'display: block';
 		$show_answer_style = 'cursor: pointer';
 
@@ -268,7 +268,7 @@ class Complex {
 	 * Shortcode that wraps around text that hides the answer.
 	 * Ex: [hidden-answer a="1"]Show Answer[/hidden-answer].
 	 */
-	function hiddenAnswerShortcode( $atts, $content = null ) {
+	public function hiddenAnswerShortCodeHandler( $atts, $content = null ) {
 
 		$hidden_answer_style = 'display: none';
 
@@ -284,9 +284,8 @@ class Complex {
 	/**
 	 * Enqueues show/hide answer JavaScript
 	 */
-	function hiddenAnswerScripts () {
+	public function hiddenAnswerScripts () {
+		  $assets = new Assets( 'pressbooks', 'plugin' );
 			wp_enqueue_script( 'hide-answers', $assets->getPath( 'scripts/hide-answer.js' ), array( 'jquery' ), '', true );
 	}
-
 }
-add_action ( 'wp_enqueue_scripts', 'hiddenAnswerScripts');
