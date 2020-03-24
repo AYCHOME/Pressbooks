@@ -40,7 +40,6 @@ class Complex {
 		add_shortcode( 'media', [ $obj, 'mediaShortCodeHandler' ] );
 		add_shortcode( 'reveal-answer', [ $obj, 'revealAnswerShortcode' ] );
 		add_shortcode( 'hidden-answer', [ $obj, 'hiddenAnswerShortcode' ] );
-
 	}
 
 	/**
@@ -280,6 +279,14 @@ class Complex {
 		);
 
 		return '<div id="q' . $atts['a'] . '" class="hidden-answer" style="' . $hidden_answer_style . '">' . do_shortcode( $content ) . '</div></div>';
-
 	}
+
+	/**
+	 * Enqueues show/hide answer JavaScript
+	 */
+	function hiddenAnswerScripts () {
+			wp_enqueue_script( 'hide-answers', $assets->getPath( 'scripts/hide-answer.js' ), array( 'jquery' ), '', true );
+	}
+
 }
+add_action ( 'wp_enqueue_scripts', 'hiddenAnswerScripts');

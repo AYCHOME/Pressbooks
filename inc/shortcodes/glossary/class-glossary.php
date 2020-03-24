@@ -76,7 +76,6 @@ class Glossary {
 			$assets = new Assets( 'pressbooks', 'plugin' );
 			wp_enqueue_script( 'glossary-tooltip', $assets->getPath( 'scripts/glossary-tooltip.js' ), false, null, true );
 			wp_enqueue_style( 'glossary-tooltip', $assets->getPath( 'styles/glossary-tooltip.css' ), false, null );
-			wp_enqueue_script( 'hide-answers', $assets->getPath( 'scripts/hide-answer.js' ), array( 'jquery' ), '', true );
 		}
 	}
 
